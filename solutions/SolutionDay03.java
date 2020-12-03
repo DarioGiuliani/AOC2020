@@ -1,5 +1,8 @@
+package solutions;
+
 import java.util.ArrayList;
 import java.util.List;
+import util.FileReader;
 
 public class SolutionDay03 {
     public static void main(String[] args) {
