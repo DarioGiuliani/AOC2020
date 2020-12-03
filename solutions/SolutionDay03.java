@@ -34,15 +34,10 @@ public class SolutionDay03 {
 
     private static Long calculatePartTwo(List<String> input) {
         Long firstSlope = calculatePartOne(input, 1, 1);
-        System.out.println("first: " + firstSlope);
         Long secondSlope = calculatePartOne(input, 3, 1);
-        System.out.println("second: " + secondSlope);
         Long thirdSlope = calculatePartOne(input, 5, 1);
-        System.out.println("third: " + thirdSlope);
         Long fourthSlope = calculatePartOne(input, 7, 1);
-        System.out.println("fourth: " + fourthSlope);
         Long fifthSlope = calculatePartOne(input, 1, 2);
-        System.out.println("fifth: " + fifthSlope);
 
         return firstSlope * secondSlope * thirdSlope * fourthSlope * fifthSlope;
     }
