@@ -10,52 +10,52 @@ public class SolutionDay05 {
         List<String> input = new ArrayList<>();
         input = FileReader.readFile("input/day05.txt");
 
-        List<Double> resultList = calculatePartOne(input);
+        List<Integer> resultList = calculatePartOne(input);
         System.out.println(Collections.max(resultList));
 
-        Double result = calculatePartTwo(resultList);
+        int result = calculatePartTwo(resultList);
         System.out.println(result);
     }
 
-    private static List<Double> calculatePartOne(List<String> input) {
+    private static List<Integer> calculatePartOne(List<String> input) {
         char[] rowIdentifiers = {'F', 'B'};
         char[] columnIdentifiers = {'L', 'R'};
-        List<Double> seatIds = new ArrayList<>();
+        List<Integer> seatIds = new ArrayList<>();
 
         for (String sequenceString : input) {
-            Double row = calculateByBoundsAndIdentifiers(0.0, 127.0, rowIdentifiers, sequenceString.substring(0,7));
-            Double column = calculateByBoundsAndIdentifiers(0.0, 7.0, columnIdentifiers, sequenceString.substring(7));
+            int row = calculateByBoundsAndIdentifiers(0, 127, rowIdentifiers, sequenceString.substring(0,7));
+            int column = calculateByBoundsAndIdentifiers(0, 7, columnIdentifiers, sequenceString.substring(7));
             seatIds.add(row * 8 + column);
         }
 
         return seatIds;
     }
 
-    private static Double calculatePartTwo(List<Double> resultList) {
-        for(double d = Collections.min(resultList); d < Collections.max(resultList); d++) {
-            if(!resultList.contains(d)) {
-                return d;
+    private static int calculatePartTwo(List<Integer> resultList) {
+        for(int i = Collections.min(resultList); i < Collections.max(resultList); i++) {
+            if(!resultList.contains(i)) {
+                return i;
             }
         }
 
-        return -1.0;
+        return -1;
     }
 
-    private static Double calculateByBoundsAndIdentifiers(Double lower, Double upper, char[] identifiers, String sequence) {
+    private static int calculateByBoundsAndIdentifiers(int lower, int upper, char[] identifiers, String sequence) {
         char[] sequenceChars = sequence.toCharArray();
 
         for (int i = 0; i < sequenceChars.length - 1; i++) {
             if(sequenceChars[i] == identifiers[0]) {
-                upper = Math.floor(getAverage(lower, upper));
+                upper = (int)Math.floor(getAverage((double)lower, (double)upper));
             } else {
-                lower = Math.ceil(getAverage(lower, upper));
+                lower = (int)Math.ceil(getAverage((double)lower, (double)upper));
             }
         }
 
         return sequenceChars[sequenceChars.length - 1] == identifiers[0] ? lower : upper;
     }
 
-    private static Double getAverage(Double x, Double y) {
+    private static double getAverage(double x, double y) {
         return (x + y) / 2;
     }
 }
