@@ -9,11 +9,18 @@ public class SolutionDay01 {
         List<String> input = new ArrayList<>();
         input = FileReader.readFile("input/day01.txt");
 
+        long startTime = System.currentTimeMillis();
+
         int resultPartOne = calculatePartOne(input);
         System.out.println(resultPartOne);
 
+        long afterPartOne = System.currentTimeMillis();
+        System.out.println("Execution time: " +  (afterPartOne - startTime) + "ms");
+
         int resultPartTwo = calculatePartTwo(input);
         System.out.println(resultPartTwo);
+
+        System.out.println("Execution time: " +  (System.currentTimeMillis() - afterPartOne) + "ms");
     }
 
     public static int calculatePartOne(List<String> input) {

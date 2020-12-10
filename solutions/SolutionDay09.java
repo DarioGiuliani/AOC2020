@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
-
 import classes.XMASProtocol;
 import util.FileReader;
 
@@ -13,11 +12,18 @@ public class SolutionDay09 {
         List<String> input = new ArrayList<>();
         input = FileReader.readFile("input/day09.txt");
 
+        long startTime = System.currentTimeMillis();
+
         long resultPartOne = calculatePartOne(input);
         System.out.println(resultPartOne);
 
+        long afterPartOne = System.currentTimeMillis();
+        System.out.println("Execution time: " +  (afterPartOne - startTime) + "ms"); 
+
         long resultPartTwo = calculatePartTwo(input, resultPartOne);
         System.out.println(resultPartTwo);
+
+        System.out.println("Execution time: " +  (System.currentTimeMillis() - afterPartOne) + "ms");
     }
 
     private static long calculatePartOne(List<String> input) {

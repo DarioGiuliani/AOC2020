@@ -15,11 +15,18 @@ public class SolutionDay04 {
         List<String> appendedInputs = Appender.appendInputs(input, " ");
         List<String> fields = Arrays.asList("byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid");
 
+        long startTime = System.currentTimeMillis();
+
         int validsPartOne = calculatePartOne(appendedInputs, fields);
         System.out.println(validsPartOne);
 
+        long afterPartOne = System.currentTimeMillis();
+        System.out.println("Execution time: " +  (afterPartOne - startTime) + "ms");
+
         int validsPartTwo = calculatePartTwo(appendedInputs, fields);
         System.out.println(validsPartTwo);
+
+        System.out.println("Execution time: " +  (System.currentTimeMillis() - afterPartOne) + "ms");
     }
 
     private static int calculatePartOne(List<String> input, List<String> fields) {
