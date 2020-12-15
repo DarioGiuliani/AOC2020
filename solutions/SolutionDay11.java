@@ -34,7 +34,7 @@ public class SolutionDay11 {
             seatSwitcher.setAmountOfSeatsSwitched(0);
             occupiedSeats += seatSwitcher.getAmountOfSeatsTaken();
             seatSwitcher = new SeatSwitcher(seatSwitcher.getSwitchedSeats());
-            seatSwitcher.switchSeats();
+            seatSwitcher.switchSeats(false);
         }
 
         return occupiedSeats;
@@ -49,7 +49,7 @@ public class SolutionDay11 {
             seatSwitcher.setAmountOfSeatsSwitched(0);
             occupiedSeats += seatSwitcher.getAmountOfSeatsTaken();
             seatSwitcher = new SeatSwitcher(seatSwitcher.getSwitchedSeats());
-            seatSwitcher.switchSeatsVisible();
+            seatSwitcher.switchSeats(true);
         }
 
         return occupiedSeats;
