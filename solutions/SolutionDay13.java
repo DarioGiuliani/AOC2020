@@ -3,7 +3,6 @@ package solutions;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -56,47 +55,40 @@ public class SolutionDay13 {
 
     private static long calculatePartTwo(List<String> input) {
         List<String> busInputList = Arrays.asList(input.get(1).split(","));
-        boolean found = false;
-        int loops = 1;
-        long earliestTimestamp = 0;
 
-        while(!found) {
-            long originTime = 0;
-            Map<Integer, Long> times = new LinkedHashMap<>();
-            for(int i = 0; i < busInputList.size(); i++) {
-                long busTime = 0;
-                
-                if(!busInputList.get(i).equals("x")) {
-                    for(int j = 0; j < loops; j++) {
-                        busTime += Long.parseLong(busInputList.get(i));
+        long time = Long.parseLong(busInputList.get(0));
+        long step = Long.parseLong(busInputList.get(0));
+
+        for (String busId : busInputList) {
+            if(!busId.equals("x")) {
+                while(true) {
+                    if((time + busInputList.indexOf(busId)) % Integer.parseInt(busId) == 0) {
+                        break;
                     }
-                } else {
-                    busTime = originTime + i;
+                    time += step;
                 }
 
-                
-                times.put(i, busTime);
-                if(i == 0) originTime = busTime;
+                step = lcm(step, Integer.parseInt(busId));
             }
-
-            if(check(times)) {
-                found = true;
-                earliestTimestamp = originTime;
-            } 
-
-            loops++;
         }
 
-        return earliestTimestamp;
+
+        return time;
     }
 
-    private static boolean check(Map<Integer, Long> times) {
-        for(int i = 0; i < times.size(); i++) {
-            if(times.get(i) != times.get(0) + i) {
-                return false;
-            }
+    private static long lcm(long number1, int number2) {
+        if (number1 == 0 || number2 == 0) {
+            return 0;
         }
 
-        return true;
+        long absNumber1 = Math.abs(number1);
+        int absNumber2 = Math.abs(number2);
+        long absHigherNumber = Math.max(absNumber1, absNumber2);
+        long absLowerNumber = Math.min(absNumber1, absNumber2);
+        long lcm = absHigherNumber;
+        while (lcm % absLowerNumber != 0) {
+            lcm += absHigherNumber;
+        }
+        return lcm;
     }
 }
