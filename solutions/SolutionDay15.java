@@ -3,6 +3,7 @@ package solutions;
 import java.util.List;
 import java.util.Map;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 import util.FileReader;
@@ -41,7 +42,7 @@ public class SolutionDay15 {
     }
 
     private static long calcNthNumber(int[] input, long nthNumber) {
-        Map<Long, Long> lastOccurences = new HashMap<>();
+        long[] lastOccurences = new long[(int)nthNumber];
         long turn = 0;
         long currentNumber = 0;
         long nextNumber = 0;
@@ -55,13 +56,12 @@ public class SolutionDay15 {
 
             turn++;
 
-            if(!lastOccurences.containsKey(currentNumber)) {
+            if(lastOccurences[(int)currentNumber] == 0) {
                 nextNumber = 0;
             } else {
-                nextNumber = turn - lastOccurences.get(currentNumber);
+                nextNumber = turn - lastOccurences[(int)currentNumber];
             }
-
-            lastOccurences.put(currentNumber, turn);
+            lastOccurences[(int)currentNumber] = turn;
         }
 
         return currentNumber;
