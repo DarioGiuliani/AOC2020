@@ -10,13 +10,13 @@ public class SolutionDay15 {
         List<String> input = new ArrayList<>();
         input = FileReader.readFile("input/day15.txt");
 
-        long startTime = System.currentTimeMillis();
-
         String[] stringInputs = input.get(0).split(",");
         int[] inputNumbers = new int[stringInputs.length];
         for(int i = 0; i < stringInputs.length; i++) {
             inputNumbers[i] = Integer.parseInt(stringInputs[i]);
         }
+
+        long startTime = System.currentTimeMillis();
 
         long resultPartOne = calculatePartOne(inputNumbers);
         System.out.println(resultPartOne);
@@ -38,29 +38,24 @@ public class SolutionDay15 {
         return calcNthNumber(input, 30000000);
     }
 
-    private static long calcNthNumber(int[] input, long nthNumber) {
-        long[] lastOccurences = new long[(int)nthNumber];
-        long turn = 0;
-        long currentNumber = 0;
-        long nextNumber = 0;
+    private static long calcNthNumber(int[] input, int nthNumber) {
+        int turn = 0;
+        int currentNumber = 0;
+        int nextNumber = 0;
 
-        while (turn < nthNumber) {
-            currentNumber = nextNumber;
-
-            if(turn < input.length) {
-                currentNumber = input[(int)turn];
-            }
-
+        int[] lastOccurences = new int[nthNumber];
+        for(int i = 0; i < input.length; i++) {
             turn++;
-
-            if(lastOccurences[(int)currentNumber] == 0) {
-                nextNumber = 0;
-            } else {
-                nextNumber = turn - lastOccurences[(int)currentNumber];
-            }
-            lastOccurences[(int)currentNumber] = turn;
+            lastOccurences[input[i]] = turn;
+            nextNumber = input[i];
         }
 
-        return currentNumber;
+        for (int i = turn; i < nthNumber; i++) {
+            currentNumber = nextNumber;
+            nextNumber = lastOccurences[currentNumber] == 0 ? 0 : i - lastOccurences[currentNumber];
+            lastOccurences[currentNumber] = i;
+        }
+
+        return nextNumber;
     }
 }
